@@ -1,5 +1,25 @@
-const sum = require('./sum');
+const Sensor = require("./sensor");
+const Camera = require("./camera");
 
-test('adds 1 + 2 to equal 3', () => {
-  expect(sum(1, 2)).toBe(3);
+const mockCameraSensor = jest.fn();
+jest.mock('./sensor', () => {
+  return jest.fn().mockImplementation(() => {
+    return { powerOn: mockCameraSensor };
+  });
 });
+
+beforeEach(() => {
+  Sensor.mockClear();
+  mockCameraSensor.mockClear();
+});
+
+
+
+test("Powering camera on powers up the sensor", () => {
+  const camera = new Camera(Sensor)
+  console.log("CAMERA--->", camera);
+  console.log("Sensor--->", Sensor);
+
+  camera.powerOn()
+  expect(Sensor.powerSensorOn()).toHaveBeenCalledTimes(1)
+})

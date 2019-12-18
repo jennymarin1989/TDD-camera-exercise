@@ -1,4 +1,16 @@
-function sum(a, b) {
-  return a + b;
+const sensor = require('./sensor')
+
+class Camera {
+
+  constructor(sensor) {
+    this.sensor = sensor
+  }
+
+  powerOn() {
+    // console.log("look here----->", this.sensor)
+    return this.sensor.powerSensorOn()
+  }
+
 }
-module.exports = sum;
+
+module.exports = Camera;
